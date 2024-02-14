@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import AskPage from "./AskPage";
+import LoadingPage from "./LoadingPage";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5400); // 5000 milliseconds = 5 seconds
+
+    return () => clearTimeout(timer); // Cleanup the timer on unmount
+  }, []);
+
+  return <div>{loading ? <LoadingPage /> : <AskPage />}</div>;
 }
 
 export default App;
